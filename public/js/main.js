@@ -8,8 +8,7 @@ var campo = $(".campo-de-digitacao");
 
 
 campo.on("input", atualizaDados);
-
-
+campo.one("focus", iniciaContagemRegressiva);
 
 function atualizaDados(){
 
@@ -23,5 +22,24 @@ function atualizaDados(){
     $('#cont-caracter').text(qtdCaracteres);
     
 };
+
+
+function iniciaContagemRegressiva(){
+
+    var tempo = $('#tempo-digitacao');
+    var contador = $('#tempo-digitacao').text(); // vale de 3
+
+
+    const timer = setInterval(function(){
+        contador--;
+        tempo.text(contador); 
+        if(contador < 1 ){
+            campo.attr("disabled", true);
+            
+            clearInterval(timer);
+        }
+
+    },1000)
+}
 
 
