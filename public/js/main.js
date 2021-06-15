@@ -6,16 +6,22 @@ tamanhoFrase.text(numeroPalavras);
 
 var campo = $(".campo-de-digitacao");
 
-var contadorPalavras = $('.cont-palavra');
-var contadorCaracteres = $('cont-caracter');
+
+campo.on("input", atualizaDados);
 
 
-campo.on("click", function(){
+
+function atualizaDados(){
+
 
     var conteudo = campo.val();
-    var qtdPalavras = conteudo.split(" ").length;
-    var qtdCaracteres = conteudo.split("")
 
-    contadorPalavras.text(qtdPalavras);
+    var qtdPalavras = conteudo.split(/\S+/).length -1;
+    $("#cont-palavra").text(qtdPalavras);
+
+    var qtdCaracteres = conteudo.length;
+    $('#cont-caracter').text(qtdCaracteres);
     
-});
+};
+
+
