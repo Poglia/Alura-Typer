@@ -76,10 +76,8 @@ function iniciaCronometro(){
             contador--; 
             tempo.text(contador); // coloca o contador dentro da tag
             if(contador < 1 ){
-
-                paraCronometro(timer);
-                //botaoReiniciar.attr("disabled", false);
-                
+                finalizaJogo(timer);
+                //botaoReiniciar.attr("disabled", false);  
             }
 
         },1000)
@@ -87,10 +85,25 @@ function iniciaCronometro(){
     });
 }
 
+function inserePlacar(){
+
+    var corpoTabela = $(".placar").find("tbody");
+    var numPalavras = $("#cont-palavra").text();
+    var usuario = "Pedro";
+    
+    var linha = 
+    "<tr>" + 
+        "<td>" + usuario + "</td>" +
+        "<td>" + numPalavras +"</td>" +
+    "</tr>"
+
+    corpoTabela.append(linha);
+}
+
 
 function reiniciaJogo(timer){
     
-        paraCronometro(timer);
+    finalizaJogo(timer);
 
         // libera o campo de texto novamente
         campo.attr("disabled", false);   
@@ -99,7 +112,7 @@ function reiniciaJogo(timer){
         // reseta o contador
         tempo.text(tempoInicial);
 
-        //zera caracteres e palavras
+        //zera cara inserePlacar();cteres e palavras
         $("#cont-palavra").text('0');
         $('#cont-caracter').text('0');
 
@@ -109,10 +122,10 @@ function reiniciaJogo(timer){
         campo.removeClass("borda-verde");
 }
 
-function paraCronometro(timer){
+function finalizaJogo(timer){
 
     campo.attr("disabled", true); //desabilita o campo
     clearInterval(timer); // trava o cronometro
     campo.addClass("campo-desativado");
-   
+    inserePlacar();
 }
