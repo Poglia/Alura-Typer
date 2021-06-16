@@ -1,15 +1,14 @@
-var tempo = $('#tempo-digitacao');
 const tempoInicial = $('#tempo-digitacao').text();
+var tempo = $('#tempo-digitacao');
 var campo = $(".campo-de-digitacao");
 var botaoReiniciar = $("#botao-reiniciar");
 
 $(function() {
     console.log("Pagina carregada");
-    reiniciaJogo();
+    
     atualizaTamanhoFrase();
     atualizaDados();
     iniciaCronometro();
-    
     botaoReiniciar.click(reiniciaJogo);
     
     
@@ -42,9 +41,10 @@ function atualizaDados(){
 
 function iniciaCronometro(){
 
-
-    campo.one("focus", function(){
-        botaoReiniciar.attr("disabled", true);
+   
+        campo.one("focus", function(){
+       // botaoReiniciar.attr("disabled", true);
+       //botao parou de funcionar com o materialize :(
 
         var contador = $('#tempo-digitacao').text(); // vale de 3
         
@@ -54,7 +54,8 @@ function iniciaCronometro(){
             if(contador < 1 ){
 
                 paraCronometro(timer);
-                botaoReiniciar.attr("disabled", false);
+                //botaoReiniciar.attr("disabled", false);
+                
             }
 
         },1000)
@@ -66,6 +67,7 @@ function iniciaCronometro(){
 function reiniciaJogo(timer){
     
         paraCronometro(timer);
+
         // libera o campo de texto novamente
         campo.attr("disabled", false);   
         campo.val(""); //zera o valor 
@@ -78,10 +80,13 @@ function reiniciaJogo(timer){
         $('#cont-caracter').text('0');
 
         iniciaCronometro();
+        campo.removeClass("campo-desativado");
 }
 
 function paraCronometro(timer){
 
     campo.attr("disabled", true); //desabilita o campo
     clearInterval(timer); // trava o cronometro
+    campo.addClass("campo-desativado");
+   
 }
